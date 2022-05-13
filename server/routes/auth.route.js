@@ -4,7 +4,7 @@ const router = express.Router();
 
 // ajaj.com/api/auth/test
 
-router.get('/test', authController.test)
+router.post('/register', authController.register)
 
 
 
