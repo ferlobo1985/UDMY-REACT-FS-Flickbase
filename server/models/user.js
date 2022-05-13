@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
@@ -61,10 +62,16 @@ userSchema.pre('save',async function(next){
     next()
 })
 
-
 userSchema.statics.emailTaken = async function(email){
     const user = await this.findOne({email});
     return !!user
+}
+
+userSchema.methods.generateAuthToken = function(){
+    let user = this;
+    const userObj = { sub: user._id.toHexString(),email: user.emal};
+    const token = jwt.sign(userObj,process.env.DB_SECRET,{ expiresIn:'1d'})
+    return token;
 }
 
 
