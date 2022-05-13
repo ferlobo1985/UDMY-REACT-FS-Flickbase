@@ -6,6 +6,12 @@ const authController = {
             const { email, password } = req.body;
             const user = await authService.createUser(email, password);
 
+            /// token
+
+            // send verification email
+
+            /// cookie
+
             res.json(user)
         } catch(error){
             console.log(error.message)
