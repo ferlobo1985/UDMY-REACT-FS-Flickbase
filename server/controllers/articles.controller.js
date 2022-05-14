@@ -30,6 +30,29 @@ const articlesController = {
             next(error)
         }
     },
+    async updateArticleById(req,res,next){
+        try{
+            const _id = req.params.id;
+            const article = await articlesService.updateArticleById(_id,req.body)
+            res.json(article);
+        } catch(error){
+            next(error)
+        }
+    },
+    async deleteArticleById(req,res,next){
+        try{
+            const _id = req.params.id;
+            await articlesService.deleteArticleById(_id)
+            res.status(httpStatus.OK).json({action:'deleted'});
+        } catch(error){
+            next(error)
+        }
+    },
+
+
+    
+
+    
     
 
 
