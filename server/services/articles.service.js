@@ -109,8 +109,31 @@ const moreArticles = async(req) => {
 }
 
 
+const paginateAdminArticles = async(req) => {
+    try{
+        let aggQuery = Article.aggregate();
+        if(req.body.keywords && req.body.keywords != ''){
+            const re = new RegExp(`${req.body.keywords}`,'gi')
+            aggQuery = Article.aggregate([
+                { $match: { title:{ $regex:re}}}
+            ]);
+        } else {
+            aggQuery = Article.aggregate();
+        }
 
 
+        const limit = req.body.limit ?  req.body.limit : 5;
+        const options = {
+            page: req.body.page,
+            limit,
+            sort:{ _id:'desc'}
+        }
+        const articles = await Article.aggregatePaginate(aggQuery,options);
+        return articles;
+    } catch(error){
+        throw error
+    }
+}
 
 module.exports = {
     addArticle,
@@ -119,5 +142,6 @@ module.exports = {
     updateArticleById,
     deleteArticleById,
     allArticles,
-    moreArticles
+    moreArticles,
+    paginateAdminArticles
 }
