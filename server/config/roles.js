@@ -17,7 +17,7 @@ let grantsObject = {
         // test:{  'read:any': ['*']  }
         profile:{
             'read:own':['*','!password','!_id'],
-            'update:own':['*']
+            'update:own':['*','!password','!_id']
         }
     }
 }
