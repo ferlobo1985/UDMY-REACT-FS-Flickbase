@@ -13,11 +13,12 @@ router.route('/article/:id')
 .patch(auth('updateAny','articles'),articlesController.updateArticleById)
 .delete(auth('deleteAny','articles'),articlesController.deleteArticleById)
 
-
-
 router.route('/users/article/:id')
 .get(articlesController.getUsersArticleById)
 
+router.route('/all')
+.get(articlesController.getAllArticles)
+.post(articlesController.getMoreArticles)
 
 
 module.exports = router;
