@@ -24,6 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "mongoose-aggregate-paginate-v2": "^1.0.6",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"
   }
