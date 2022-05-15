@@ -26,9 +26,20 @@ import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
 
 
-
-
 const AddArticle = () => {
+    // redux
+    const articles = useSelector(state=>state.articles);
+    const dispatch = useDispatch();
+
+    const formik = useFormik({
+        enableReinitialize:true,
+        initialValues: '',
+        validationSchema:'',
+        onSubmit:(values)=>{
+            console.log(values)
+        }
+    })
+
 
 
     return(
