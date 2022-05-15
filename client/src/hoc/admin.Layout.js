@@ -15,12 +15,12 @@ const AdminLayout = (props) => {
                 <nav className='col-md-2 d-none d-md-block sidebar'>
                     <div>
                     <List>
-                        <ListItem button components={RouterLink} to="/dashboard/profile">
+                        <ListItem button component={RouterLink} to="/dashboard/profile">
                             <ListItemText primary="Profile"/>
                         </ListItem>
                         { users.data.role === 'admin' ?
                             <>
-                                <ListItem button components={RouterLink} to="/dashboard/articles">
+                                <ListItem button component={RouterLink} to="/dashboard/articles">
                                     <ListItemText primary="Articles"/>
                                 </ListItem>
                             </>
