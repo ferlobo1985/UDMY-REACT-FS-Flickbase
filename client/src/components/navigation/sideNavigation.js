@@ -15,7 +15,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
-const SideDrawer = () => {
+const SideDrawer = ({users,signOutUser}) => {
     const [state,setState ] = useState(false);
 
     return(
@@ -49,33 +49,36 @@ const SideDrawer = () => {
                             <ListItemText primary="Contact"/>
                         </ListItem>
 
-                        <ListItem
-                            button
-                            component={RouterLink}
-                            to="/auth"
-                            onClick={()=> setState(false)}
-                        >
-                            <ListItemIcon>
-                                <VpnKeyIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Sign in"/>
-                        </ListItem>
-
-                        <ListItem
-                            button
-                            onClick={()=> {
-                                alert('sign out')
-                                setState(false)
-                            }}
-                        >
-                            <ListItemIcon>
-                                <VpnKeyIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary="Sign out"/>
-                        </ListItem>
+                        { !users.auth ?
+                            <ListItem
+                                button
+                                component={RouterLink}
+                                to="/auth"
+                                onClick={()=> setState(false)}
+                            >
+                                <ListItemIcon>
+                                    <VpnKeyIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Sign in"/>
+                            </ListItem>
+                        :
+                            <ListItem
+                                button
+                                onClick={()=> {
+                                    signOutUser()
+                                    setState(false)
+                                }}
+                            >
+                                <ListItemIcon>
+                                    <VpnKeyIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Sign out"/>
+                            </ListItem>
+                        }
 
                         <>
                             <Divider/>
+                            { users.auth ?
                             <ListItem
                                button
                                component={RouterLink}
@@ -87,6 +90,7 @@ const SideDrawer = () => {
                                 </ListItemIcon>
                                 <ListItemText primary="Dashboard"/>
                             </ListItem>
+                            :null}
                         </>
                     </List>
                 </Box>

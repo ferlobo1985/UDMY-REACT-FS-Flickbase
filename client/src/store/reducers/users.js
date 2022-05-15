@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { 
     registerUser,
     signInUser,
-    isAuth
+    isAuth,
+    signOut
 } from '../actions/users'
 
 let DEFAULT_USER_STATE = {
@@ -51,6 +52,11 @@ export const usersSlice = createSlice({
              state.auth = action.payload.auth;
          })
          .addCase(isAuth.rejected,(state)=>{ state.loading = false })
+         // SIGN OUT
+         .addCase(signOut.fulfilled,(state,action)=>{
+            state.data = DEFAULT_USER_STATE.data
+            state.auth = false;
+        })
 
         
     }
