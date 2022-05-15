@@ -11,6 +11,8 @@ import Home from './components/home';
 import Auth from './components/auth';
 
 import Dashboard from './components/dashboard';
+import AdminArticles from './components/dashboard/articles';
+import AdminProfile from './components/dashboard/profile';
 
 import AuthGuard from './hoc/authGuard';
 
@@ -46,7 +48,10 @@ const Router = () => {
               <AuthGuard>
                 <Dashboard/>
               </AuthGuard>
-            }/>
+            }>
+                <Route path='profile' element={<AdminProfile/>}/>
+                <Route path='articles' element={<AdminArticles/>}/>
+            </Route>
             <Route path='/auth' element={<Auth/>}/>
             <Route path='/' element={<Home/>}/>
           </Routes>
