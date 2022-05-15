@@ -1,4 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import { 
+    registerUser,
+    signInUser
+} from '../actions/users'
 
 let DEFAULT_USER_STATE = {
     loading:false,
@@ -19,6 +23,26 @@ export const usersSlice = createSlice({
     initialState:DEFAULT_USER_STATE,
     reducers:{
 
+    },
+    extraReducers:(builder)=>{
+        builder
+        // REGISTER
+        .addCase(registerUser.pending,(state)=>{ state.loading = true })
+        .addCase(registerUser.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.data = action.payload.data;
+            state.auth = action.payload.auth;
+        })
+        .addCase(registerUser.rejected,(state)=>{ state.loading = false })
+        // SIGN IN
+        .addCase(signInUser.pending,(state)=>{ state.loading = true })
+        .addCase(signInUser.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.data = action.payload.data;
+            state.auth = action.payload.auth;
+        })
+        .addCase(signInUser.rejected,(state)=>{ state.loading = false })
+        
     }
 })
 
