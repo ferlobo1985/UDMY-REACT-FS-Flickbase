@@ -116,7 +116,7 @@ const AddArticle = () => {
                                         </IconButton>
                                     </Paper>
                                     { formik.errors.actors && formik.touched.actors ?
-                                        <FormHelperText error="true">
+                                        <FormHelperText error={true}>
                                             { formik.errors.actors}
                                         </FormHelperText>
                                     :null}
@@ -165,7 +165,7 @@ const AddArticle = () => {
                         <MenuItem value="public">Public</MenuItem>
                     </Select>
                     { formik.errors.status && formik.touched.status ?
-                        <FormHelperText error="true">
+                        <FormHelperText error={true}>
                             { formik.errors.status}
                         </FormHelperText>
                     :null
