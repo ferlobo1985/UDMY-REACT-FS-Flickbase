@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,8 +16,10 @@ import { registerUser, signInUser } from '../../store/actions/users';
 const Auth = () => {
     // comp
     const [register,setRegister] = useState(false);
+    let navigate = useNavigate()
     // redux
-    const users = useSelector((state)=>state.users);
+    const users = useSelector( state => state.users);
+    const notifications = useSelector( state => state.notifications)
     const dispatch = useDispatch();
 
     const formik = useFormik({
@@ -40,6 +43,13 @@ const Auth = () => {
             dispatch(signInUser(values))
         }
     }
+
+
+    useEffect(()=>{
+        if(notifications && notifications.global.success){
+            navigate('/dashboard')
+        }
+    },[notifications])
 
 
     return(
