@@ -4,7 +4,7 @@ const DashboardMain = () => {
     return(
         <>
             <AdminTitle title="Dashboard"/>
-        Dashboard main
+            Dashboard main
         </>
     )
 }
