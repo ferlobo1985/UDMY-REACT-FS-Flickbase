@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 // comp
 import { AdminTitle } from '../../../../utils/tools';
 import { errorHelper, Loader } from '../../../../utils/tools'
+import { validation, formValues } from './validationSchema'
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,8 +34,8 @@ const AddArticle = () => {
 
     const formik = useFormik({
         enableReinitialize:true,
-        initialValues: '',
-        validationSchema:'',
+        initialValues: formValues,
+        validationSchema:validation,
         onSubmit:(values)=>{
             console.log(values)
         }
