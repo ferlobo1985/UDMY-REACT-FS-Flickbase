@@ -23,12 +23,24 @@ const WYSIWYG = (props) =>{
         props.setEditorState(HTMLdata)
     }
 
+    /// edit
+    useEffect(()=>{
+        
+
+
+    },[props.editorContent])
+    // edit
+
+
+
+
     const checkError = () =>{
         if(props.onError || ( props.onError && props.editorBlur)){
             return true
         }
         return false;
     }
+    
 
 
     return(
