@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { errorHelper } from '../../utils/tools'
+import { errorHelper,Loader } from '../../utils/tools'
 
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -45,6 +45,9 @@ const Auth = () => {
     return(
         <div className='auth_container'>
             <h1>Authenticate</h1>
+            { users.loading ?
+                <Loader/>
+            :
             <Box
                 sx={{
                     '& .MuiTextField-root': { width:'100%',marginTop:'20px' },
@@ -83,12 +86,9 @@ const Auth = () => {
                     >
                         Want to { !register ? 'Register': 'Login'}
                     </Button>
-
-
                 </div>
-
-
             </Box>
+            }
 
         </div>
     )
