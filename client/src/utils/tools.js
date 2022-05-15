@@ -44,3 +44,9 @@ export const AdminTitle = ({title}) => (
         <h1 className='h2'>{title}</h1>
     </div>
 )
+
+
+export const htmlDecode = (input) => {
+    const doc = new DOMParser().parseFromString(input,"text/html")
+    return doc.documentElement.textContent;
+}

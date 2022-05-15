@@ -9,7 +9,7 @@ import { validation, formValues } from './validationSchema'
 import WYSIWYG from '../../../../utils/form/wysiwyg';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdminArticle } from '../../../../store/actions/articles';
+import { getAdminArticle, updateArticle } from '../../../../store/actions/articles';
 
 // MUI
 import TextField from '@mui/material/TextField'
@@ -35,7 +35,6 @@ const EditArticle = () => {
     const [editorContent,setEditorContent] = useState(null);
     const [editorBlur,setEditorBlur] = useState(false);
     // redux
-    const articles = useSelector(state=>state.articles);
     const dispatch = useDispatch();
 
     const actorsValue = useRef('');
@@ -46,11 +45,7 @@ const EditArticle = () => {
         initialValues: formData,
         validationSchema:validation,
         onSubmit:(values)=>{
-            // dispatch(addArticle(values))
-            // .unwrap()
-            // .then(()=>{
-            //     navigate('/dashboard/articles')
-            // })
+            dispatch(updateArticle({values,articleId}))
         }
     })
 

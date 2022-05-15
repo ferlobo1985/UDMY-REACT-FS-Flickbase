@@ -35,3 +35,16 @@ export const getAdminArticle = createAsyncThunk(
 )
 
 
+export const updateArticle = createAsyncThunk(
+    'articles/updateArticle',
+    async({values,articleId},{ dispatch })=>{
+        try{
+            await axios.patch(`/api/articles/article/${articleId}`,values,getAuthHeader());
+            dispatch(successGlobal('Article updated !!'))
+            return true;
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+            throw error
+        }
+    }
+)
