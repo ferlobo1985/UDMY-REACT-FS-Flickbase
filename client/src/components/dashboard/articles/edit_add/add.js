@@ -9,6 +9,7 @@ import { validation, formValues } from './validationSchema'
 import WYSIWYG from '../../../../utils/form/wysiwyg';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
+import { addArticle } from '../../../../store/actions/articles';
 
 // MUI
 import TextField from '@mui/material/TextField'
@@ -25,7 +26,7 @@ import FormHelperText from '@mui/material/FormHelperText'
  
 import InputLabel from '@mui/material/InputLabel';
 import AddIcon from '@mui/icons-material/Add';
-import { visuallyHidden } from '@mui/utils';
+// import { visuallyHidden } from '@mui/utils';
 
 
 const AddArticle = () => {
@@ -35,13 +36,18 @@ const AddArticle = () => {
     const dispatch = useDispatch();
 
     const actorsValue = useRef('');
+    let navigate = useNavigate();
 
     const formik = useFormik({
         enableReinitialize:true,
         initialValues: formValues,
         validationSchema:validation,
         onSubmit:(values)=>{
-            console.log(values)
+            dispatch(addArticle(values))
+            .unwrap()
+            .then(()=>{
+                navigate('/dashboard/articles')
+            })
         }
     })
 
@@ -195,6 +201,9 @@ const AddArticle = () => {
 
                 <Divider className='mt-3 mb-3'/>
 
+                { articles.loading ?
+                    <Loader/>
+                :
                 <Button
                     variant='contained'
                     color="primary"
@@ -202,6 +211,7 @@ const AddArticle = () => {
                 >
                     Add article
                 </Button>
+                }
 
 
             </form>
