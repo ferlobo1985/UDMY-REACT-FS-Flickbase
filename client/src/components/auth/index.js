@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 
 import { registerUser, signInUser } from '../../store/actions/users';
-
+import PreventSignIn from '../../hoc/preventSignIn';
 
 const Auth = () => {
     // comp
@@ -53,6 +53,7 @@ const Auth = () => {
 
 
     return(
+        <PreventSignIn users={users}>
         <div className='auth_container'>
             <h1>Authenticate</h1>
             { users.loading ?
@@ -101,6 +102,7 @@ const Auth = () => {
             }
 
         </div>
+        </PreventSignIn>
     )
 }
 

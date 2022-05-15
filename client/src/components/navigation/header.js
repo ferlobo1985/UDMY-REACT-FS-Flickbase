@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SideDrawer from './sideNavigation';
 
 import { showToast } from '../../utils/tools';
@@ -12,6 +12,7 @@ const Header = () => {
     const users = useSelector(state => state.users);
     const notifications = useSelector(state => state.notifications);
     const dispatch = useDispatch();
+    let navigate = useNavigate()
 
 
     useEffect(()=>{
@@ -29,7 +30,8 @@ const Header = () => {
     },[notifications])
 
     const signOutUser = () => {
-        dispatch(signOut())
+        dispatch(signOut());
+        navigate('/')
     }
 
 
