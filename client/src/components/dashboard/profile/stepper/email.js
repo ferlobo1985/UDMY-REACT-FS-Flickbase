@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { errorHelper, Loader } from '../../../../utils/tools'
+import { changeEmail } from '../../../../store/actions/users'
 
 import {
     TextField,
@@ -32,11 +33,15 @@ const EmailStepper = ({user,closeModal}) => {
             .required('This is required')
             .email('This is not a valid email')
             .test('equal','The email are the same',(newemail)=>{
-                return newemail !== user.date.email
+                return newemail !== user.data.email
             })
         }),
         onSubmit:(values)=>{
-            console.log(values)
+           dispatch(changeEmail(values))
+           .unwrap()
+           .then(()=>{
+               closeModal();
+           })
         }
     });
 
@@ -56,7 +61,7 @@ const EmailStepper = ({user,closeModal}) => {
     )
 
     const backBtn = () => (
-        <Button className='mt-3' variant='contained' color='primary' onClick={handleBack}>
+        <Button className='mt-3 me-2' variant='contained' color='primary' onClick={handleBack}>
            Back
         </Button>
     )
@@ -96,7 +101,31 @@ const EmailStepper = ({user,closeModal}) => {
                         </div>
                     :null
                     }
-
+                    { activeStep === 1 ?
+                        <div className='form-group'>
+                            <TextField
+                                style={{width:'100%'}}
+                                name="newemail"
+                                label="Enter you new email"
+                                variant='outlined'
+                                {...formik.getFieldProps('newemail')}
+                                {...errorHelper(formik,'newemail')}
+                            />
+                            { backBtn() }
+                            { formik.values.newemail && !formik.errors.newemail ?
+                                nextBtn()
+                            :null}
+                        </div>
+                    :null
+                    }
+                    { activeStep === 2 ?
+                        <div className='form-group'>
+                            <Button className='mt-3 me-2' variant='contained' color="primary" onClick={formik.submitForm}>
+                                Yes change my email
+                            </Button>
+                            { backBtn()}
+                        </div>
+                    :null}
 
                 </form>
 

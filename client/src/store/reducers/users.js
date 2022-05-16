@@ -4,7 +4,8 @@ import {
     signInUser,
     isAuth,
     signOut,
-    updateUserProfile
+    updateUserProfile,
+    changeEmail
 } from '../actions/users'
 
 let DEFAULT_USER_STATE = {
@@ -62,8 +63,13 @@ export const usersSlice = createSlice({
         .addCase(updateUserProfile.fulfilled,(state,action)=>{
            state.data = {...state.data,...action.payload}
         })
-
-        
+        /// CHANGE EMAIL
+        .addCase(changeEmail.pending,(state)=>{ state.loading = true })
+        .addCase(changeEmail.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.data = { ...state.data,...action.payload}
+        })
+        .addCase(changeEmail.rejected,(state)=>{ state.loading = false })
     }
 })
 
