@@ -38,11 +38,73 @@ const EmailStepper = ({user,closeModal}) => {
         onSubmit:(values)=>{
             console.log(values)
         }
-    })
+    });
+
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep)=> prevActiveStep + 1)
+    }
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep)=> prevActiveStep - 1)
+    }
+
+    const nextBtn = () => (
+        <Button className='mt-3' variant='contained' color='primary' onClick={handleNext}>
+            Next
+        </Button>
+    )
+
+    const backBtn = () => (
+        <Button className='mt-3' variant='contained' color='primary' onClick={handleBack}>
+           Back
+        </Button>
+    )
 
 
 
-return(<>stepper</>)
+
+    return(
+        <>
+            { user.loading ?
+                <Loader/>
+            :
+            <>
+                <Stepper activeStep={activeStep}>
+                    { steps.map(label=>{
+                        return(
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        )
+                    })}
+                </Stepper>
+                <form className='mt-3 stepper_form' onSubmit={formik.handleSubmit}>
+                    { activeStep === 0 ?
+                        <div className='form-group'>
+                            <TextField
+                                style={{width:'100%'}}
+                                name="email"
+                                label="Enter you old email"
+                                variant='outlined'
+                                {...formik.getFieldProps('email')}
+                                {...errorHelper(formik,'email')}
+                            />
+                            { formik.values.email && !formik.errors.email ?
+                                nextBtn()
+                            :null}
+                        </div>
+                    :null
+                    }
+
+
+                </form>
+
+
+            </>
+            }
+        </>
+    )
 
 }
 
