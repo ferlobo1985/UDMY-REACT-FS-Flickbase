@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import ArticleCard from '../../utils/articleCard';
 
 // mui
 import Grid from '@mui/material/Grid';
@@ -31,7 +32,7 @@ const Home = () => {
                 { articles && articles.articles ?
                     articles.articles.map(item=>(
                         <Grid key={item._id} item xs={12} sm={6} lg={3}>
-                            {item.title}
+                            <ArticleCard article={item}/>
                         </Grid>
                     ))
                 :null}
