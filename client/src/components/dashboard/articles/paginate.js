@@ -4,7 +4,10 @@ import Moment from 'react-moment';
 
 
 const PaginateComponent = ({
-    articles
+    articles,
+    goToPrevPage,
+    goToNextPage,
+    goToEdit
 }) => {
 
 
@@ -32,7 +35,7 @@ const PaginateComponent = ({
                                         Remove
                                     </td>
                                     <td className='action_btn edit_btn'
-                                        onClick={()=>alert('GO TO EDIT')}
+                                        onClick={()=> goToEdit(item._id)}
                                     >
                                         Edit
                                     </td>
@@ -48,8 +51,12 @@ const PaginateComponent = ({
                     <Pagination>
                         { articles.hasPrevPage ?
                             <>
-                                <Pagination.Prev/>
-                                <Pagination.Item>
+                                <Pagination.Prev 
+                                    onClick={()=> goToPrevPage(articles.prevPage)}
+                                />
+                                <Pagination.Item
+                                    onClick={()=> goToPrevPage(articles.prevPage)}
+                                >
                                     {articles.prevPage}
                                 </Pagination.Item>
                             </>
@@ -58,10 +65,14 @@ const PaginateComponent = ({
                         <Pagination.Item active>{articles.page}</Pagination.Item>
                         { articles.hasNextPage ?
                             <>
-                                <Pagination.Item>
+                                <Pagination.Item
+                                    onClick={()=> goToNextPage(articles.nextPage)}
+                                >
                                     {articles.nextPage}
                                 </Pagination.Item>
-                                <Pagination.Next/>
+                                <Pagination.Next
+                                    onClick={()=> goToNextPage(articles.nextPage)}
+                                />
                             </>
                         :null
                         }
