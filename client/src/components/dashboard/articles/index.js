@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { AdminTitle } from '../../../utils/tools'
+import PaginateComponent from './paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getPaginateArticles } from '../../../store/actions/articles'
@@ -49,7 +50,9 @@ const AdminArticles = () => {
             </ButtonToolbar>
 
             <>
-                pagination
+                <PaginateComponent
+                    articles={articles.adminArticles}
+                />
             </>
 
 
