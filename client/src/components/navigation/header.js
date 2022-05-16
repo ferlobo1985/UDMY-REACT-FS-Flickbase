@@ -49,12 +49,17 @@ const Header = () => {
 
 
     return(
+        <>
+        { !users.data.verified && users.auth ?
+            <div className='not_verified'>Not Verified</div>
+        :null}
         <nav className={`navbar fixed-top ${site.layout}`}>
             <Link to="/" className='navbar-brand d-flex align-items-center fredoka_ff'>
                 Flickbase
             </Link>
             <SideDrawer users={users} signOutUser={signOutUser}/>
         </nav>
+        </>
     )
 }
 

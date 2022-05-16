@@ -10,6 +10,7 @@ import Header from './components/navigation/header';
 import Home from './components/home';
 import Auth from './components/auth';
 import Article from './components/articles/article';
+import AccountVerify from './components/auth/verification';
 
 import Dashboard from './components/dashboard';
 import AdminArticles from './components/dashboard/articles';
@@ -60,6 +61,7 @@ const Router = () => {
                 <Route path='articles/edit/:articleId' element={<EditArticle/>}/>
                 
             </Route>
+            <Route path='/verification' element={<AccountVerify/>}/>
             <Route path='/articles/article/:id' element={<Article/>}/>
             <Route path='/auth' element={<Auth/>}/>
             <Route path='/' element={<Home/>}/>
