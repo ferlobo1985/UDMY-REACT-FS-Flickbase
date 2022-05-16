@@ -59,3 +59,24 @@ export const signOut = createAsyncThunk(
     }
 )
 
+
+
+export const updateUserProfile = createAsyncThunk(
+    'users/updateUserProfile',
+    async(data,{dispatch})=>{
+        try{
+            const profile = await axios.patch(`/api/users/profile`,data,getAuthHeader())
+            dispatch(successGlobal('Profile updated !!'))
+            return {
+                firstname: profile.data.firstname,
+                lastname: profile.data.lastname,
+                age: profile.data.age
+            }
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+           throw error; 
+        }
+    }
+)
+
+
