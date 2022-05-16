@@ -19,8 +19,6 @@ export const addArticle = createAsyncThunk(
     }
 )
 
-
-
 export const getAdminArticle = createAsyncThunk(
     'articles/getAdminArticle',
     async(_id,{ dispatch })=>{
@@ -34,7 +32,6 @@ export const getAdminArticle = createAsyncThunk(
     }
 )
 
-
 export const updateArticle = createAsyncThunk(
     'articles/updateArticle',
     async({values,articleId},{ dispatch })=>{
@@ -42,6 +39,24 @@ export const updateArticle = createAsyncThunk(
             await axios.patch(`/api/articles/article/${articleId}`,values,getAuthHeader());
             dispatch(successGlobal('Article updated !!'))
             return true;
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+            throw error
+        }
+    }
+)
+
+
+export const getPaginateArticles = createAsyncThunk(
+    'articles/getPaginateArticles',
+    async({page=1,limit=5,keywords=''},{ dispatch })=>{
+        try{
+            const request = await axios.post(`/api/articles/admin/paginate`,{
+                page,
+                limit,
+                keywords
+            },getAuthHeader())
+            return request.data;
         } catch(error){
             dispatch(errorGlobal(error.response.data.message))
             throw error
