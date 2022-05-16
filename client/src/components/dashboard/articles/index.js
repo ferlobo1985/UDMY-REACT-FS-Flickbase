@@ -4,7 +4,7 @@ import { AdminTitle } from '../../../utils/tools'
 import PaginateComponent from './paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getPaginateArticles } from '../../../store/actions/articles'
+import { getPaginateArticles, changeStatusArticle } from '../../../store/actions/articles'
 
 import {
     Modal,
@@ -34,6 +34,11 @@ const AdminArticles = () => {
     }   
     const goToEdit = (id) => {
         navigate(`/dashboard/articles/edit/${id}`)
+    }
+
+    const handleStatusChange = (status,_id) => {
+        let newStatus = status === 'draft' ? 'public':'draft';
+        dispatch(changeStatusArticle({newStatus,_id}))
     }
 
 
@@ -72,6 +77,7 @@ const AdminArticles = () => {
                     goToPrevPage={(page)=> goToPrevPage(page)}
                     goToNextPage={(page)=> goToNextPage(page)}
                     goToEdit={(id)=> goToEdit(id)}
+                    handleStatusChange={(status,id)=>handleStatusChange(status,id)}
 
                 />
             </>
