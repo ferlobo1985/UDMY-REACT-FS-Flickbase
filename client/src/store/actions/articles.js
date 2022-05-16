@@ -90,3 +90,22 @@ export const changeStatusArticle = createAsyncThunk(
     }
 )
 
+
+
+export const removeArticle = createAsyncThunk(
+    'articles/removeArticle',
+    async(_id,{ dispatch, getState })=>{
+        try{
+            await axios.delete(`/api/articles/article/${_id}`,getAuthHeader())
+            dispatch(successGlobal('Article removed'));
+
+            let page = getState().articles.adminArticles.page;
+            dispatch(getPaginateArticles({page}))
+            return true;
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+            throw error
+        }
+    }
+)
+
