@@ -23,4 +23,10 @@ router.route('/all')
 router.post('/admin/paginate',auth('readAny','articles'),articlesController.adminPaginate)
 
 
+/// Categories
+router.route('/categories')
+.post(auth('createAny','categories'), articlesController.createCategory)
+.get(auth('readAny','categories'),articlesController.getAllCategories)
+
+
 module.exports = router;
