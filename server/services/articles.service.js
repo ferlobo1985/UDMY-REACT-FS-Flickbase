@@ -20,7 +20,7 @@ const addArticle =  async(body) => {
 
 const getArticleById = async(_id,user) => {
     try{
-        const article = await Article.findById(_id);
+        const article = await Article.findById(_id).populate('category');
         if(!article) throw new ApiError(httpStatus.NOT_FOUND,'Article not found');
         if(user.role === 'user' && article.status === 'draft'){
             throw new ApiError(httpStatus.NOT_FOUND,'Sorry you are not allowed');
@@ -34,7 +34,7 @@ const getArticleById = async(_id,user) => {
 
 const getUsersArticleById = async(_id) => {
     try{
-        const article = await Article.findById(_id);
+        const article = await Article.findById(_id).populate('category');;
         if(!article) throw new ApiError(httpStatus.NOT_FOUND,'Article not found');
 
         if(article.status === 'draft'){
@@ -80,6 +80,7 @@ const allArticles = async(req) => {
     try{
         const articles = await Article
         .find({status:'public'})
+        .populate('category')
         .sort([
             [sortby,order]
         ])
@@ -100,6 +101,7 @@ const moreArticles = async(req) => {
     try{
         const articles = await Article
         .find({status:'public'})
+        .populate('category')
         .sort([[sortby,order]])
         .skip(skip)
         .limit(parseInt(limit));
@@ -112,17 +114,28 @@ const moreArticles = async(req) => {
 
 const paginateAdminArticles = async(req) => {
     try{
-        let aggQuery = Article.aggregate();
+        let aggQueryArray = [];
         if(req.body.keywords && req.body.keywords != ''){
             const re = new RegExp(`${req.body.keywords}`,'gi')
-            aggQuery = Article.aggregate([
+            aggQueryArray.push(
                 { $match: { title:{ $regex:re}}}
-            ]);
-        } else {
-            aggQuery = Article.aggregate();
+            )
         }
 
 
+        aggQueryArray.push(
+            { $lookup:
+                {
+                    from:"categories",
+                    localField:"category",
+                    foreignField:"_id",
+                    as:"category"
+                }
+            },
+            { $unwind:"$category"}
+        )
+
+        let aggQuery = Article.aggregate(aggQueryArray);
         const limit = req.body.limit ?  req.body.limit : 5;
         const options = {
             page: req.body.page,

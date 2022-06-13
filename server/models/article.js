@@ -50,7 +50,7 @@ const articleSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required:true,
-        default:'N/A'
+        default:'62a7bd5bc87fadb5631a8539'
     },
     date:{
         type: Date,
