@@ -90,8 +90,6 @@ export const changeStatusArticle = createAsyncThunk(
     }
 )
 
-
-
 export const removeArticle = createAsyncThunk(
     'articles/removeArticle',
     async(_id,{ dispatch, getState })=>{
@@ -108,8 +106,6 @@ export const removeArticle = createAsyncThunk(
         }
     }
 )
-
-
 
 export const homeLoadMore = createAsyncThunk(
     'articles/homeLoadMore',
@@ -143,6 +139,19 @@ export const getArticle = createAsyncThunk(
     }
 )
 
+
+export const getCategories = createAsyncThunk(
+    'articles/getCategories',
+    async(obj,{ dispatch })=>{
+        try{
+            const request = await axios.get(`/api/articles/categories`,getAuthHeader())
+            return request.data
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+            throw error
+        }
+    }
+)
 
 
 

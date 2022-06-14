@@ -4,7 +4,8 @@ import {
     getPaginateArticles,
     changeStatusArticle,
     homeLoadMore,
-    getArticle
+    getArticle,
+    getCategories
 } from '../actions/articles';
 
 
@@ -19,7 +20,8 @@ export const articlesSlice = createSlice({
         },
         loading:false,
         articles:[],
-        current:null
+        current:null,
+        categories:[]
     },
     reducers:{
     },
@@ -55,6 +57,11 @@ export const articlesSlice = createSlice({
             state.current = action.payload 
         })
         .addCase(getArticle.rejected,(state)=>{ state.loading = false })
+        /// CATEGORY
+        .addCase(getCategories.fulfilled,(state,action)=>{ 
+            state.categories = action.payload;
+        })
+
     }
 })
 
