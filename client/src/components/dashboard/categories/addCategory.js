@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-/// import {  } from '../../../store/actions/articles';
+import { addCategory } from '../../../store/actions/articles';
 import { errorHelper } from '../../../utils/tools';
 
 import { useFormik } from 'formik';
@@ -7,8 +7,7 @@ import * as Yup from 'yup';
 
 import {
     TextField,
-    Button,
-    Divider
+    Button
 } from '@mui/material'
 
 
@@ -23,7 +22,7 @@ const AddCategory = () => {
             .required('The name is required')
         }),
         onSubmit:(values,{ resetForm })=>{
-            console.log(values)
+            dispatch(addCategory(values))
             resetForm()
         }
     })

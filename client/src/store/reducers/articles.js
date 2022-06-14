@@ -24,6 +24,9 @@ export const articlesSlice = createSlice({
         categories:[]
     },
     reducers:{
+        updateCategories:(state,action)=>{
+            state.categories = action.payload
+        }
     },
     extraReducers:(builder)=>{
         builder
@@ -65,5 +68,5 @@ export const articlesSlice = createSlice({
     }
 })
 
-
+export const { updateCategories } = articlesSlice.actions
 export default articlesSlice.reducer;

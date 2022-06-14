@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { errorGlobal, successGlobal } from '../reducers/notifications';
+import { updateCategories } from '../reducers/articles'
 import { getAuthHeader } from '../../utils/tools';
 import axios from 'axios'
 
@@ -152,6 +153,28 @@ export const getCategories = createAsyncThunk(
         }
     }
 )
+
+
+export const addCategory = createAsyncThunk(
+    'articles/addCategory',
+    async(data,{ dispatch, getState })=>{
+        try{
+            const category = await axios.post('/api/articles/categories',data,getAuthHeader());
+            const state = getState().articles.categories;
+
+            const prevState = [...state];
+            const newState = [...prevState,category.data]
+
+            dispatch(updateCategories(newState));
+            dispatch(successGlobal('Category created !!'))
+            return newState;
+        } catch(error){
+            dispatch(errorGlobal(error.response.data.message))
+            throw error
+        }
+    }
+)
+
 
 
 
